@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "149756157482",
+    "firebase_url": "https://aquatech-1d9b9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "aquatech-1d9b9",
+    "storage_bucket": "aquatech-1d9b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149756157482:android:d452f909e206050c4c6d53",
+        "android_client_info": {
+          "package_name": "com.example.aquatech_iot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0xhc3wEFaUJqWNJOxVoj_ovhq3erns-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

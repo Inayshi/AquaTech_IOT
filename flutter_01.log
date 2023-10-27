@@ -1,0 +1,85 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run
+
+## exception
+
+PathNotFoundException: PathNotFoundException: Cannot open file, path = 'C:\Users\nicol\OneDrive\Attachments\Documents\FLUTTER\flutter\bin\cache\dart-sdk\lib\dev_compiler\amd\require.js' (OS Error: The system cannot find the path specified.
+, errno = 3)
+
+```
+#0      _File.throwIfError (dart:io/file_impl.dart:675:7)
+#1      _File.openSync (dart:io/file_impl.dart:490:5)
+#2      _File.readAsBytesSync (dart:io/file_impl.dart:574:18)
+#3      ForwardingFile.readAsBytesSync (package:file/src/forwarding/forwarding_file.dart:91:43)
+#4      ForwardingFile.readAsBytesSync (package:file/src/forwarding/forwarding_file.dart:91:43)
+#5      WebDevFS.update (package:flutter_tools/src/isolated/devfs_web.dart:840:57)
+#6      ResidentWebRunner._updateDevFS (package:flutter_tools/src/isolated/resident_web_runner.dart:522:56)
+<asynchronous suspension>
+#7      ResidentWebRunner.run.<anonymous closure> (package:flutter_tools/src/isolated/resident_web_runner.dart:308:41)
+<asynchronous suspension>
+#8      asyncGuard.<anonymous closure> (package:flutter_tools/src/base/async_guard.dart:111:24)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[33m[!][39m Flutter (Channel stable, 0.0.0-unknown, on Microsoft Windows [Version 10.0.22621.2428], locale en-PH)
+    [33m![39m Flutter version 0.0.0-unknown on channel stable at C:\Users\nicol\OneDrive\Attachments\Documents\FLUTTER\flutter
+      Cannot resolve current version, possibly due to local changes.
+      Reinstall Flutter by following instructions at https://flutter.dev/docs/get-started/install.
+    [32m•[39m Upstream repository https://github.com/flutter/flutter.git
+    [32m•[39m Framework revision  (), 1970-01-01 08:00:00.000
+    [32m•[39m Engine revision a794cf2681
+    [32m•[39m Dart version 3.1.3
+    [32m•[39m DevTools version 2.25.0
+    [32m•[39m If those were intentional, you can disregard the above warnings; however it is recommended to use "git" directly to perform update checks and upgrades.
+
+[32m[✓][39m Windows Version (Installed version of Windows is version 10 or higher)
+
+[32m[✓][39m Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+    [32m•[39m Android SDK at C:\Users\nicol\AppData\Local\Android\sdk
+    [32m•[39m Platform android-34, build-tools 34.0.0
+    [32m•[39m Java binary at: C:\Program Files\Android\Android Studio\jbr\bin\java
+    [32m•[39m Java version OpenJDK Runtime Environment (build 17.0.6+0-b2043.56-10027231)
+    [32m•[39m All Android licenses accepted.
+
+[32m[✓][39m Chrome - develop for the web
+    [32m•[39m Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe
+
+[33m[!][39m Visual Studio - develop Windows apps (Visual Studio Community 2022 17.3.3)
+    [32m•[39m Visual Studio at C:\Program Files\Microsoft Visual Studio\2022\Community
+    [32m•[39m Visual Studio Community 2022 version 17.3.32825.248
+    [31m✗[39m Visual Studio is missing necessary components. Please re-run the Visual Studio installer for the "Desktop development with C++" workload, and include these components:
+        MSVC v142 - VS 2019 C++ x64/x86 build tools
+         - If there are multiple build tool versions available, install the latest
+        C++ CMake tools for Windows
+        Windows 10 SDK
+
+[32m[✓][39m Android Studio (version 2022.3)
+    [32m•[39m Android Studio at C:\Program Files\Android\Android Studio
+    [32m•[39m Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    [32m•[39m Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    [32m•[39m Java version OpenJDK Runtime Environment (build 17.0.6+0-b2043.56-10027231)
+
+[32m[✓][39m VS Code (version 1.83.1)
+    [32m•[39m VS Code at C:\Users\nicol\AppData\Local\Programs\Microsoft VS Code
+    [32m•[39m Flutter extension can be installed from:
+      🔨 https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
+
+[32m[✓][39m Connected device (3 available)
+    [32m•[39m Windows (desktop) • windows • windows-x64    • Microsoft Windows [Version 10.0.22621.2428]
+    [32m•[39m Chrome (web)      • chrome  • web-javascript • Google Chrome 118.0.5993.117
+    [32m•[39m Edge (web)        • edge    • web-javascript • Microsoft Edge 118.0.2088.69
+
+[32m[✓][39m Network resources
+    [32m•[39m All expected network resources are available.
+
+[33m![39m Doctor found issues in 2 categories.
+```
