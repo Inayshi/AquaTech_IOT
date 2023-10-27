@@ -60,7 +60,7 @@ class _TankProfileState extends State<TankProfile> {
                           ),
                           SizedBox(width: 20),
                           RoundedPillButton(
-                            text: 'Dispense pH Balancer',
+                            text: 'Load Balancer',
                             backgroundColor: const Color(0xFF5BC0F8),
                             textColor: Colors.black,
                           ),
@@ -72,10 +72,10 @@ class _TankProfileState extends State<TankProfile> {
                               });
                             },
                             child: RoundedPillButton(
-                              text: 'Switch Gauge',
-                              backgroundColor: const Color(0xFF5BC0F8),
-                              textColor: Colors.black,
-                            ),
+                            text: 'Switch Theme',
+                            backgroundColor: const Color(0xFF5BC0F8),
+                            textColor: Colors.black,
+                          ),
                           ),
                         ],
                       ),
