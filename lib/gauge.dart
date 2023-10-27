@@ -39,12 +39,11 @@ class _GaugeState extends State<Gauge> {
     if (tempValue >= 30 || phValue >= 8.0 || ammoniaValue >= 0.25) {
       AwesomeNotifications().createNotification(
           content: NotificationContent(
-            id: 10,
-            channelKey: 'aquatech_notification',
-            title: 'Critical Level!',
-            body: 'Your tank water condition is at a critical level.',
-          )
-      );
+        id: 10,
+        channelKey: 'aquatech_notification',
+        title: 'Critical Level!',
+        body: 'Your tank water condition is at a critical level.',
+      ));
     }
   }
 
@@ -69,16 +68,18 @@ class _GaugeState extends State<Gauge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          WaterTempGauge(value: tempValue),
-          PhLevelGauge(value: phValue),
-          AmmoniaGauge(value: ammoniaValue),
-          ElevatedButton(
-            onPressed: saveData,
-            child: Text('Save Data'),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            WaterTempGauge(value: tempValue),
+            PhLevelGauge(value: phValue),
+            AmmoniaGauge(value: ammoniaValue),
+            ElevatedButton(
+              onPressed: saveData,
+              child: const Text('Save Data'),
+            ),
+          ],
+        ),
       ),
     );
   }
