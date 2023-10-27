@@ -4,76 +4,94 @@ import 'package:aquatech/gauge.dart';
 import 'package:aquatech/gaugebasic.dart';
 import 'package:flutter/material.dart';
 
-
-class TankProfile extends StatelessWidget {
+class TankProfile extends StatefulWidget {
   const TankProfile({super.key});
 
-  get floatingActionButton => null;
-  get showGaugeBasic => null;
+  @override
+  _TankProfileState createState() => _TankProfileState();
+}
+
+class _TankProfileState extends State<TankProfile> {
+  bool showGaugeBasic = true;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
+          ),
         ),
-      ),
-      drawer: MenuDrawer(),
-      body: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.2, // 40% of screen height
-            color: Color(0xFF0081C9),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Tank 1',
-                    style: TextStyle(
-                      fontSize: 45,
-                      color: Colors.white,
+        drawer: MenuDrawer(),
+        body: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.17,
+              color: Color(0xFF0081C9),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Tank 1',
+                      style: TextStyle(
+                        fontSize: 45,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RoundedPillButton(
-                        text: 'Change Water',
-                        backgroundColor: Color(0xFF5BC0F8),
-                        textColor: Colors.black,
+                    SizedBox(height: 20),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundedPillButton(
+                            text: 'Change Water',
+                            backgroundColor: const Color(0xFF5BC0F8),
+                            textColor: Colors.black,
+                          ),
+                          SizedBox(width: 20),
+                          RoundedPillButton(
+                            text: 'Dispense pH Balancer',
+                            backgroundColor: const Color(0xFF5BC0F8),
+                            textColor: Colors.black,
+                          ),
+                          SizedBox(width: 20),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                showGaugeBasic = !showGaugeBasic;
+                              });
+                            },
+                            child: RoundedPillButton(
+                              text: 'Switch Gauge',
+                              backgroundColor: const Color(0xFF5BC0F8),
+                              textColor: Colors.black,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 20),
-                      RoundedPillButton(
-                        text: 'Dispense pH Balancer',
-                        backgroundColor: Color(0xFF5BC0F8),
-                        textColor: Colors.black,
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              color: Color(0xFFEDF3FC),
-              width: 500,
-              height: 1500,
-              child: GaugeBasic(),
+            Expanded(
+              child: Container(
+                color: const Color(0xFFEDF3FC),
+                child: showGaugeBasic ? GaugeBasic() : Gauge(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
