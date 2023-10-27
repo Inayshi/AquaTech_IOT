@@ -69,10 +69,10 @@ Widget build(BuildContext context) {
           orientation: LinearGaugeOrientation.horizontal,
           axisLabelStyle: TextStyle(fontSize: 12.0, color: Colors.black),
           axisTrackStyle: LinearAxisTrackStyle(
-            color: Colors.white,
+            color: Color(0xFFEDF3FC),
             edgeStyle: LinearEdgeStyle.bothFlat,
             thickness: 15.0,
-            borderColor: Colors.grey,
+            borderColor: Color(0xFFEDF3FC),
           ),
           markerPointers: <LinearMarkerPointer>[
             LinearShapePointer(

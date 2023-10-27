@@ -9,7 +9,8 @@ class PhLevelGauge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column( // Wrap the gauge in a Column to include a title
+      child: Column(
+        // Wrap the gauge in a Column to include a title
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
@@ -22,11 +23,7 @@ class PhLevelGauge extends StatelessWidget {
           ),
           SfLinearGauge(
             ranges: [
-              LinearGaugeRange(
-                  startValue: 0,
-                  endValue: 1,
-                  color: Colors.red
-              ),
+              LinearGaugeRange(startValue: 0, endValue: 1, color: Colors.red),
               LinearGaugeRange(
                 startValue: 1,
                 endValue: 2,
@@ -99,10 +96,10 @@ class PhLevelGauge extends StatelessWidget {
             orientation: LinearGaugeOrientation.horizontal,
             axisLabelStyle: TextStyle(fontSize: 12.0, color: Colors.black),
             axisTrackStyle: LinearAxisTrackStyle(
-              color: Colors.white,
+              color: Color(0xFFEDF3FC),
               edgeStyle: LinearEdgeStyle.bothFlat,
               thickness: 15.0,
-              borderColor: Colors.grey,
+              borderColor: Color(0xFFEDF3FC),
             ),
             markerPointers: <LinearMarkerPointer>[
               LinearShapePointer(

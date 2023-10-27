@@ -35,17 +35,40 @@ class _TankProfileState extends State<TankProfile> {
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.17,
+              width: MediaQuery.of(context).size.width * 100,
               color: Color(0xFF0081C9),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Tank 1',
-                      style: TextStyle(
-                        fontSize: 45,
-                        color: Colors.white,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Tank 1 ',
+                          style: TextStyle(
+                            fontSize: 45,
+                            color: Colors.white,
+                          ),
+                        ),
+                        DecoratedBox(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: const Color(0xFF5BC0F8) // Set the desired color for the circle
+                            ),
+                            child: IconButton(
+                              icon: const Icon(Icons.remove_red_eye, color: Colors.black), // Set the desired color for the icon
+                              onPressed: () {
+                                setState(() {
+                                  showGaugeBasic = !showGaugeBasic;
+                                });
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Switched Views')),
+                                );
+                              },
+                            ),
+                          )
+                      ],
                     ),
                     SizedBox(height: 20),
                     SingleChildScrollView(
@@ -65,18 +88,7 @@ class _TankProfileState extends State<TankProfile> {
                             textColor: Colors.black,
                           ),
                           SizedBox(width: 20),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                showGaugeBasic = !showGaugeBasic;
-                              });
-                            },
-                            child: RoundedPillButton(
-                            text: 'Switch Theme',
-                            backgroundColor: const Color(0xFF5BC0F8),
-                            textColor: Colors.black,
-                          ),
-                          ),
+                      
                         ],
                       ),
                     ),
@@ -97,6 +109,8 @@ class _TankProfileState extends State<TankProfile> {
   }
 }
 
+
+ 
 class ContainerWithIcon extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
@@ -148,14 +162,6 @@ class RoundedPillButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(50),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12.withOpacity(0.2), // Black with opacity 0.5
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
       ),
       child: Text(
         text,

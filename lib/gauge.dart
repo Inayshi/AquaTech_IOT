@@ -68,9 +68,22 @@ class _GaugeState extends State<Gauge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: 
+              Text('Scientific View',
+              style: TextStyle(
+              color: Color(0xFF0081C9),
+              fontSize: 30,
+            
+              ),
+              ),
+            ),
             WaterTempGauge(value: tempValue),
             PhLevelGauge(value: phValue),
             AmmoniaGauge(value: ammoniaValue),
