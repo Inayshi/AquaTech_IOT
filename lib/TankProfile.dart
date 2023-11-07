@@ -1,8 +1,8 @@
-import 'package:aquatech/WaterTempGauge.dart';
 import 'package:aquatech/drawer.dart';
 import 'package:aquatech/gauge.dart';
 import 'package:aquatech/gaugebasic.dart';
 import 'package:flutter/material.dart';
+
 
 class TankProfile extends StatefulWidget {
   const TankProfile({super.key});
@@ -52,22 +52,25 @@ class _TankProfileState extends State<TankProfile> {
                           ),
                         ),
                         DecoratedBox(
-                            decoration: BoxDecoration(
+                          decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: const Color(0xFF5BC0F8) // Set the desired color for the circle
-                            ),
-                            child: IconButton(
-                              icon: const Icon(Icons.remove_red_eye, color: Colors.black), // Set the desired color for the icon
-                              onPressed: () {
-                                setState(() {
-                                  showGaugeBasic = !showGaugeBasic;
-                                });
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Switched Views')),
-                                );
-                              },
-                            ),
-                          )
+                              color: const Color(
+                                  0xFF5BC0F8) // Set the desired color for the circle
+                              ),
+                          child: IconButton(
+                            icon: const Icon(Icons.remove_red_eye,
+                                color: Colors
+                                    .black), // Set the desired color for the icon
+                            onPressed: () {
+                              setState(() {
+                                showGaugeBasic = !showGaugeBasic;
+                              });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Switched Views')),
+                              );
+                            },
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(height: 20),
@@ -87,9 +90,9 @@ class _TankProfileState extends State<TankProfile> {
                             backgroundColor: const Color(0xFF5BC0F8),
                             textColor: Colors.black,
                           ),
+                    
                           SizedBox(width: 20),
-                      
-                        ],
+                          ],
                       ),
                     ),
                   ],
@@ -109,8 +112,6 @@ class _TankProfileState extends State<TankProfile> {
   }
 }
 
-
- 
 class ContainerWithIcon extends StatelessWidget {
   final IconData icon;
   final Color iconColor;

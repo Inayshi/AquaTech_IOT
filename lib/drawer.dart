@@ -1,11 +1,9 @@
-
 import 'package:aquatech/AnalyticsPage.dart';
 import 'package:aquatech/InformationPage.dart';
 import 'package:aquatech/MyTanks.dart';
 import 'package:aquatech/SettingsPage.dart';
 import 'HomePage.dart';
 import 'package:flutter/material.dart';
-
 
 class MenuDrawer extends StatelessWidget {
   @override
@@ -17,16 +15,19 @@ class MenuDrawer extends StatelessWidget {
           ListTile(
             title: Text(
               'Home',
-              style: TextStyle(fontFamily: 'Poppins', fontSize: 20),),
-              onTap: () {
+              style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
+            ),
+            onTap: () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => MyStatefulWidget()),
               );
             },
           ),
           ListTile(
-            title: Text('My Tanks',
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 20),),
+            title: Text(
+              'My Tanks',
+              style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
+            ),
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => MyTanks()),
@@ -34,8 +35,10 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Analytics',
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 20),),
+            title: Text(
+              'Records',
+              style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
+            ),
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => AnalyticsPage()),
@@ -43,8 +46,10 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Information',
-              style: TextStyle(fontFamily: 'Poppins', fontSize: 20),),
+            title: Text(
+              'Information',
+              style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
+            ),
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => InformationPage()),
@@ -52,16 +57,17 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Connections', style: TextStyle(fontFamily: 'Poppins', fontSize: 20),),
-            onTap: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => SettingsPage()),
-              );
-            }
-          ),
+              title: Text(
+                'Connections',
+                style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
+              ),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
+              }),
         ],
       ),
     );
-
   }
 }

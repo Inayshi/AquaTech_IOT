@@ -62,10 +62,28 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "crypto",
+      "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.6",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "equatable",
+      "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "event_bus",
+      "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/event_bus-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "fake_async",
@@ -108,6 +126,12 @@
       "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_web-0.2.3+10",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "fl_chart",
+      "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/fl_chart-0.36.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter",
@@ -170,8 +194,20 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mqtt_client",
+      "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/mqtt_client-9.8.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "pedantic",
+      "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/pedantic-1.11.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -236,6 +272,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "typed_data",
+      "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/nicol/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -254,7 +296,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-10-27T08:58:55.232488Z",
+  "generated": "2023-11-07T05:03:18.798769Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }

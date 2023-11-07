@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +25,7 @@ class _GaugeState extends State<Gauge> {
   @override
   void initState() {
     super.initState();
+    startTimer();
     _database.reference().child('Sensor').onValue.listen((event) {
       final data = event.snapshot.value as Map<dynamic, dynamic>;
       setState(() {
@@ -33,6 +35,10 @@ class _GaugeState extends State<Gauge> {
         checkAndSendNotifications();
       });
     });
+  }
+
+  void startTimer() {
+    Timer.periodic(const Duration(minutes: 30), (Timer t) => saveData());
   }
 
   void checkAndSendNotifications() {
@@ -55,42 +61,32 @@ class _GaugeState extends State<Gauge> {
         'AMMONIA': ammoniaValue,
         'timestamp': FieldValue.serverTimestamp(),
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Data saved successfully!')),
-      );
+      print('Data is saved in records!');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to save data: $e')),
-      );
+      print('Failed to save data: $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
             const Padding(
               padding: EdgeInsets.all(8.0),
-              child: 
-              Text('Scientific View',
-              style: TextStyle(
-              color: Color(0xFF0081C9),
-              fontSize: 30,
-            
-              ),
+              child: Text(
+                'Scientific View',
+                style: TextStyle(
+                  color: Color(0xFF0081C9),
+                  fontSize: 30,
+                ),
               ),
             ),
             WaterTempGauge(value: tempValue),
             PhLevelGauge(value: phValue),
             AmmoniaGauge(value: ammoniaValue),
-            ElevatedButton(
-              onPressed: saveData,
-              child: const Text('Save Data'),
-            ),
           ],
         ),
       ),

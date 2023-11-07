@@ -15,7 +15,7 @@ class AnalyticsPage extends StatelessWidget {
   Future<void> confirmDelete(BuildContext context, String documentId) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false,  // user must tap a button to close the dialog
+      barrierDismissible: false, // user must tap a button to close the dialog
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm Delete'),
@@ -58,7 +58,7 @@ class AnalyticsPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.2,
             child: const Center(
               child: Text(
-                'Analytics',
+                'Records',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 45,
@@ -104,7 +104,7 @@ class AnalyticsPage extends StatelessWidget {
                         DataColumn(label: Text('Temperature ( °C)')),
                         DataColumn(label: Text('pH Level')),
                         DataColumn(label: Text('Ammonia (ppm)')),
-                        DataColumn(label: Text('Delete')),
+                        DataColumn(label: Text('Water Change')),
                       ],
                       rows: rows,
                     ),
