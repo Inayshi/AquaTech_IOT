@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aquatech/MqttClient.dart';
 import 'package:flutter/material.dart';
 
@@ -29,21 +31,31 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           children: <Widget>[
             const Text('Data received:',
                 style: TextStyle(color: Colors.black, fontSize: 25)),
-            ValueListenableBuilder<String>(
-              builder: (BuildContext context, String value, Widget? child) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text('$value',
-                        style: TextStyle(
-                            color: Colors.deepPurpleAccent, fontSize: 35))
-                  ],
+            ValueListenableBuilder<Map<String, dynamic>>(
+              builder: (BuildContext context, Map<String, dynamic> value,
+                  Widget? child) {
+                // Convert the entire map to a JSON string for display
+                String jsonStr =
+                    const JsonEncoder.withIndent('  ').convert(value);
+                return Text(
+                  jsonStr,
+                  style: const TextStyle(
+                      color: Colors.deepPurpleAccent, fontSize: 32),
                 );
               },
-              valueListenable: mqttHandler.data,
-            )
+              valueListenable: mqttHandler
+                  .jsonData, // This is the ValueNotifier from your MqttHandler
+            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          String jsonMessage = json.encode({"1": "1"});
+          mqttHandler.publishMessage(jsonMessage);
+        },
+        child: const Icon(Icons.send),
+        tooltip: 'Publish Message',
       ),
     );
   }

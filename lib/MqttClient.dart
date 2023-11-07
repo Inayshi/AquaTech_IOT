@@ -1,102 +1,129 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttHandler with ChangeNotifier {
-  final ValueNotifier<String> data = ValueNotifier<String>("");
+  final ValueNotifier<Map<String, dynamic>> jsonData = ValueNotifier<Map<String, dynamic>>({});
   late MqttServerClient client;
 
-  Future<Object> connect() async {
-    client = MqttServerClient.withPort(
-        'broker.emqx.io', 'mqttx_24cf6aea', 1883);
+  Future<void> connect() async {
+    client = MqttServerClient.withPort('broker.emqx.io', '95ddfec3-5e66-410b-b7b8-ddecb878fe3c', 1883);
     client.logging(on: true);
+    // Set up callbacks
     client.onConnected = onConnected;
     client.onDisconnected = onDisconnected;
     client.onUnsubscribed = onUnsubscribed;
     client.onSubscribed = onSubscribed;
     client.onSubscribeFail = onSubscribeFail;
     client.pongCallback = pong;
-    client.keepAlivePeriod = 60;
-    client.logging(on: true);
 
-    /// Set the correct MQTT protocol for mosquito
+    // Enable auto reconnect
+    client.autoReconnect = true;
+
+    // Keep alive period is 60 seconds
+    client.keepAlivePeriod = 60;
+
+    // Set the protocol to version 3.1.1
     client.setProtocolV311();
 
-    final connMessage = MqttConnectMessage()
+    client.connectionMessage = MqttConnectMessage()
         .withWillTopic('willtopic')
         .withWillMessage('Will message')
         .startClean()
         .withWillQos(MqttQos.atLeastOnce);
 
-    print('MQTT_LOGS::Mosquitto client connecting....');
-
-    client.connectionMessage = connMessage;
     try {
       await client.connect();
     } catch (e) {
-      print('Exception: $e');
-      client.disconnect();
+      debugPrint('MQTT_LOGS::Exception during connection: $e');
+      return;
     }
 
-    if (client.connectionStatus!.state == MqttConnectionState.connected) {
-      print('MQTT_LOGS::Mosquitto client connected');
+    if (client.connectionStatus?.state == MqttConnectionState.connected) {
+      debugPrint('MQTT_LOGS::Mosquitto client connected');
     } else {
-      print(
-          'MQTT_LOGS::ERROR Mosquitto client connection failed - disconnecting, status is ${client.connectionStatus}');
-      client.disconnect();
-      return -1;
+      debugPrint('MQTT_LOGS::ERROR Mosquitto client connection failed - status is ${client.connectionStatus}');
+      return;
     }
 
-    print('MQTT_LOGS::Subscribing to the test/lol topic');
-    const topic = 'test/sample';
+    const topic = 'test/pub1';
     client.subscribe(topic, MqttQos.atMostOnce);
 
     client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
-      final recMess = c![0].payload as MqttPublishMessage;
-      final pt =
-          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      final MqttPublishMessage recMess = c![0].payload as MqttPublishMessage;
+      final String messagePayload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
-      data.value = pt;
-      notifyListeners();
-      print(
-          'MQTT_LOGS:: New data arrived: topic is <${c[0].topic}>, payload is $pt');
-      print('');
+      try {
+        final Map<String, dynamic> jsonMap = json.decode(messagePayload);
+        jsonData.value = jsonMap;
+        notifyListeners();
+      } catch (e) {
+        debugPrint('MQTT_LOGS::Error parsing JSON data: $e');
+      }
+
+      debugPrint('MQTT_LOGS::New data arrived: topic is <${c[0].topic}>, payload is <$messagePayload>');
     });
-
-    return client;
   }
 
   void onConnected() {
-    print('MQTT_LOGS:: Connected');
+    debugPrint('MQTT_LOGS::Connected');
   }
 
   void onDisconnected() {
-    print('MQTT_LOGS:: Disconnected');
+    debugPrint('MQTT_LOGS::Disconnected');
+    if (client.connectionStatus!.disconnectionOrigin == MqttDisconnectionOrigin.unsolicited) {
+      debugPrint('MQTT_LOGS::Unexpected disconnection; attempting to reconnect...');
+      // Optionally implement additional logic to handle reconnection
+      // For example, you might want to call connect() again here or set up a reconnection strategy
+    }
   }
 
+
   void onSubscribed(String topic) {
-    print('MQTT_LOGS:: Subscribed topic: $topic');
+    debugPrint('MQTT_LOGS::Subscribed topic: $topic');
   }
 
   void onSubscribeFail(String topic) {
-    print('MQTT_LOGS:: Failed to subscribe $topic');
+    debugPrint('MQTT_LOGS::Failed to subscribe $topic');
   }
 
   void onUnsubscribed(String? topic) {
-    print('MQTT_LOGS:: Unsubscribed topic: $topic');
+    debugPrint('MQTT_LOGS::Unsubscribed topic: $topic');
   }
 
   void pong() {
-    print('MQTT_LOGS:: Ping response client callback invoked');
+    debugPrint('MQTT_LOGS::Ping response client callback invoked');
   }
 
-  void publishMessage(String message) {
-    const pubTopic = 'test/sample';
+  bool publishMessage(String message) {
+    const pubTopic = 'test/pub1';
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
 
     if (client.connectionStatus?.state == MqttConnectionState.connected) {
-      client.publishMessage(pubTopic, MqttQos.atMostOnce, builder.payload!);
+      try {
+        client.publishMessage(pubTopic, MqttQos.atMostOnce, builder.payload!);
+        debugPrint('MQTT_LOGS::Message published to $pubTopic');
+        return true; // Indicate a successful publish operation
+      } catch (e) {
+        debugPrint('MQTT_LOGS::Failed to publish message: $e');
+        return false; // Indicate a failed publish operation
+      }
+    } else {
+      debugPrint('MQTT_LOGS::Cannot publish message, client is not connected');
+      return false; // Indicate a failed publish operation
     }
   }
+
+
+  @override
+  void dispose() {
+    if (client.connectionStatus?.state == MqttConnectionState.connected) {
+      client.disconnect();
+    }
+    super.dispose();
+  }
 }
+
+
