@@ -1,4 +1,3 @@
-import 'package:aquatech/MqttClient.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -53,7 +52,7 @@ class _MyAppState extends State<MyApp> {
               fontFamily: 'Poppins',
             ),
       ),
-      home: MyStatefulWidget(), // Navigate to WidgetTree
+      home: HomePage(), // Navigate to WidgetTree
     );
   }
 }

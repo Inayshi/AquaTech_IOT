@@ -2,10 +2,11 @@ import 'package:aquatech/drawer.dart';
 import 'package:aquatech/gauge.dart';
 import 'package:aquatech/gaugebasic.dart';
 import 'package:flutter/material.dart';
-
+import 'MqttClient.dart';
+import 'dart:convert';
 
 class TankProfile extends StatefulWidget {
-  const TankProfile({super.key});
+  const TankProfile({Key? key}) : super(key: key);
 
   @override
   _TankProfileState createState() => _TankProfileState();
@@ -13,6 +14,13 @@ class TankProfile extends StatefulWidget {
 
 class _TankProfileState extends State<TankProfile> {
   bool showGaugeBasic = true;
+  MqttHandler mqttHandler = MqttHandler();
+
+  @override
+  void initState() {
+    super.initState();
+    mqttHandler.connect();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +61,12 @@ class _TankProfileState extends State<TankProfile> {
                         ),
                         DecoratedBox(
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: const Color(
-                                  0xFF5BC0F8) // Set the desired color for the circle
-                              ),
+                            shape: BoxShape.circle,
+                          ),
                           child: IconButton(
                             icon: const Icon(Icons.remove_red_eye,
                                 color: Colors
-                                    .black), // Set the desired color for the icon
+                                    .white), // Set the desired color for the icon
                             onPressed: () {
                               setState(() {
                                 showGaugeBasic = !showGaugeBasic;
@@ -79,20 +85,27 @@ class _TankProfileState extends State<TankProfile> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          RoundedPillButton(
-                            text: 'Change Water',
-                            backgroundColor: const Color(0xFF5BC0F8),
-                            textColor: Colors.black,
+                          FloatingActionButton.extended(
+                            onPressed: () {
+                              String jsonMessage = json.encode({"1": "1"});
+                              mqttHandler.publishMessage(jsonMessage);
+                            },
+                            icon: const Icon(Icons.water_drop),
+                            label: const Text('Change Water'),
+                            tooltip: 'Activate Water Change',
                           ),
                           SizedBox(width: 20),
-                          RoundedPillButton(
-                            text: 'Load Balancer',
-                            backgroundColor: const Color(0xFF5BC0F8),
-                            textColor: Colors.black,
+                          FloatingActionButton.extended(
+                            onPressed: () {
+                              String jsonMessage = json.encode({"1": "1"});
+                              mqttHandler.publishMessage(jsonMessage);
+                            },
+                            icon: const Icon(Icons.science_rounded),
+                            label: const Text('Adjust pH'),
+                            tooltip: 'Activate pH Dispenser',
                           ),
-                    
-                          SizedBox(width: 20),
-                          ],
+                          SizedBox(width: 30),
+                        ],
                       ),
                     ),
                   ],
@@ -150,10 +163,13 @@ class RoundedPillButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
 
+  var onPressed;
+
   RoundedPillButton({
     required this.text,
     required this.backgroundColor,
     required this.textColor,
+    this.onPressed,
   });
 
   @override

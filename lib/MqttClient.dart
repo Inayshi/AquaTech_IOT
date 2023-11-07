@@ -4,11 +4,13 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttHandler with ChangeNotifier {
-  final ValueNotifier<Map<String, dynamic>> jsonData = ValueNotifier<Map<String, dynamic>>({});
+  final ValueNotifier<Map<String, dynamic>> jsonData =
+      ValueNotifier<Map<String, dynamic>>({});
   late MqttServerClient client;
 
   Future<void> connect() async {
-    client = MqttServerClient.withPort('broker.emqx.io', '95ddfec3-5e66-410b-b7b8-ddecb878fe3c', 1883);
+    client = MqttServerClient.withPort(
+        'broker.emqx.io', '95ddfec3-5e66-410b-b7b8-ddecb878fe3c', 1883);
     client.logging(on: true);
     // Set up callbacks
     client.onConnected = onConnected;
@@ -43,7 +45,8 @@ class MqttHandler with ChangeNotifier {
     if (client.connectionStatus?.state == MqttConnectionState.connected) {
       debugPrint('MQTT_LOGS::Mosquitto client connected');
     } else {
-      debugPrint('MQTT_LOGS::ERROR Mosquitto client connection failed - status is ${client.connectionStatus}');
+      debugPrint(
+          'MQTT_LOGS::ERROR Mosquitto client connection failed - status is ${client.connectionStatus}');
       return;
     }
 
@@ -52,7 +55,8 @@ class MqttHandler with ChangeNotifier {
 
     client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
       final MqttPublishMessage recMess = c![0].payload as MqttPublishMessage;
-      final String messagePayload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      final String messagePayload =
+          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
       try {
         final Map<String, dynamic> jsonMap = json.decode(messagePayload);
@@ -62,7 +66,8 @@ class MqttHandler with ChangeNotifier {
         debugPrint('MQTT_LOGS::Error parsing JSON data: $e');
       }
 
-      debugPrint('MQTT_LOGS::New data arrived: topic is <${c[0].topic}>, payload is <$messagePayload>');
+      debugPrint(
+          'MQTT_LOGS::New data arrived: topic is <${c[0].topic}>, payload is <$messagePayload>');
     });
   }
 
@@ -72,13 +77,14 @@ class MqttHandler with ChangeNotifier {
 
   void onDisconnected() {
     debugPrint('MQTT_LOGS::Disconnected');
-    if (client.connectionStatus!.disconnectionOrigin == MqttDisconnectionOrigin.unsolicited) {
-      debugPrint('MQTT_LOGS::Unexpected disconnection; attempting to reconnect...');
+    if (client.connectionStatus!.disconnectionOrigin ==
+        MqttDisconnectionOrigin.unsolicited) {
+      debugPrint(
+          'MQTT_LOGS::Unexpected disconnection; attempting to reconnect...');
       // Optionally implement additional logic to handle reconnection
       // For example, you might want to call connect() again here or set up a reconnection strategy
     }
   }
-
 
   void onSubscribed(String topic) {
     debugPrint('MQTT_LOGS::Subscribed topic: $topic');
@@ -116,7 +122,6 @@ class MqttHandler with ChangeNotifier {
     }
   }
 
-
   @override
   void dispose() {
     if (client.connectionStatus?.state == MqttConnectionState.connected) {
@@ -125,5 +130,3 @@ class MqttHandler with ChangeNotifier {
     super.dispose();
   }
 }
-
-
