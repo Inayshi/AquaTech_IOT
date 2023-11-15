@@ -9,8 +9,7 @@ class MqttHandler with ChangeNotifier {
   late MqttServerClient client;
 
   Future<void> connect() async {
-    client = MqttServerClient.withPort(
-        'broker.emqx.io', '95ddfec3-5e66-410b-b7b8-ddecb878fe3c', 1883);
+    client = MqttServerClient.withPort('broker.emqx.io', 'aquatechIOT', 1883);
     client.logging(on: true);
     // Set up callbacks
     client.onConnected = onConnected;
@@ -50,8 +49,12 @@ class MqttHandler with ChangeNotifier {
       return;
     }
 
-    const topic = 'test/pub1';
-    client.subscribe(topic, MqttQos.atMostOnce);
+    //DEFINE TOPICS
+    const topicPump = 'aquatech/pump';
+    const topicServo = 'aquatech/servo';
+    //SUB TO TOPICS
+    client.subscribe(topicPump, MqttQos.atMostOnce);
+    client.subscribe(topicServo, MqttQos.atMostOnce);
 
     client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
       final MqttPublishMessage recMess = c![0].payload as MqttPublishMessage;
@@ -102,15 +105,35 @@ class MqttHandler with ChangeNotifier {
     debugPrint('MQTT_LOGS::Ping response client callback invoked');
   }
 
-  bool publishMessage(String message) {
-    const pubTopic = 'test/pub1';
+  bool publishPumpMessage(String message) {
+    const pubTopic1 = 'aquatech/pump';
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
 
     if (client.connectionStatus?.state == MqttConnectionState.connected) {
       try {
-        client.publishMessage(pubTopic, MqttQos.atMostOnce, builder.payload!);
-        debugPrint('MQTT_LOGS::Message published to $pubTopic');
+        client.publishMessage(pubTopic1, MqttQos.atMostOnce, builder.payload!);
+        debugPrint('MQTT_LOGS::Message published to $pubTopic1');
+        return true; // Indicate a successful publish operation
+      } catch (e) {
+        debugPrint('MQTT_LOGS::Failed to publish message: $e');
+        return false; // Indicate a failed publish operation
+      }
+    } else {
+      debugPrint('MQTT_LOGS::Cannot publish message, client is not connected');
+      return false; // Indicate a failed publish operation
+    }
+  }
+
+  bool publishServoMessage(String message) {
+    const pubTopic2 = 'aquatech/servo';
+    final builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+
+    if (client.connectionStatus?.state == MqttConnectionState.connected) {
+      try {
+        client.publishMessage(pubTopic2, MqttQos.atMostOnce, builder.payload!);
+        debugPrint('MQTT_LOGS::Message published to $pubTopic2');
         return true; // Indicate a successful publish operation
       } catch (e) {
         debugPrint('MQTT_LOGS::Failed to publish message: $e');

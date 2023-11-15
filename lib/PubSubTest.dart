@@ -51,7 +51,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           String jsonMessage = json.encode({"1": "1"});
-          mqttHandler.publishMessage(jsonMessage);
+          mqttHandler.publishPumpMessage(jsonMessage);
         },
         child: const Icon(Icons.send),
         tooltip: 'Publish Message',

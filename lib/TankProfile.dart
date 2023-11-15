@@ -2,8 +2,9 @@ import 'package:aquatech/drawer.dart';
 import 'package:aquatech/gauge.dart';
 import 'package:aquatech/gaugebasic.dart';
 import 'package:flutter/material.dart';
-import 'MqttClient.dart';
-import 'dart:convert';
+//import 'MqttClient.dart';
+//import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
 
 class TankProfile extends StatefulWidget {
   const TankProfile({Key? key}) : super(key: key);
@@ -14,12 +15,21 @@ class TankProfile extends StatefulWidget {
 
 class _TankProfileState extends State<TankProfile> {
   bool showGaugeBasic = true;
-  MqttHandler mqttHandler = MqttHandler();
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+
+  String relayValue = 'Relay OFF'; // Initialize to OFF
+  String servoValue = 'Relay OFF'; // Initialize to OFF
 
   @override
   void initState() {
     super.initState();
-    mqttHandler.connect();
+    _database.reference().child('Commands').onValue.listen((event) {
+      final data = event.snapshot.value as Map<dynamic, dynamic>;
+      setState(() {
+        relayValue = data['RELAY'].toString();
+        servoValue = data['SERVO'].toString();
+      });
+    });
   }
 
   @override
@@ -87,8 +97,19 @@ class _TankProfileState extends State<TankProfile> {
                         children: [
                           FloatingActionButton.extended(
                             onPressed: () {
-                              String jsonMessage = json.encode({"1": "1"});
-                              mqttHandler.publishMessage(jsonMessage);
+                              // Turn the relay on
+                              _database
+                                  .reference()
+                                  .child('Commands')
+                                  .update({'RELAY': 'Relay ON'});
+
+                              // Wait for 30 seconds and then turn it off
+                              Future.delayed(Duration(seconds: 10), () {
+                                _database
+                                    .reference()
+                                    .child('Commands')
+                                    .update({'RELAY': 'Relay OFF'});
+                              });
                             },
                             icon: const Icon(Icons.water_drop),
                             label: const Text('Change Water'),
@@ -97,8 +118,19 @@ class _TankProfileState extends State<TankProfile> {
                           SizedBox(width: 20),
                           FloatingActionButton.extended(
                             onPressed: () {
-                              String jsonMessage = json.encode({"1": "1"});
-                              mqttHandler.publishMessage(jsonMessage);
+                              // Turn the servo on
+                              _database
+                                  .reference()
+                                  .child('Commands')
+                                  .update({'SERVO': 'Servo ON'});
+
+                              // Wait for 30 seconds and then turn it off
+                              Future.delayed(Duration(seconds: 10), () {
+                                _database
+                                    .reference()
+                                    .child('Commands')
+                                    .update({'SERVO': 'Servo OFF'});
+                              });
                             },
                             icon: const Icon(Icons.science_rounded),
                             label: const Text('Adjust pH'),
