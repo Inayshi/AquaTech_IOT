@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-class AmmoniaGauge extends StatelessWidget {
+class AmmoniaGaugeBasic extends StatelessWidget {
   final double value;
 
-  AmmoniaGauge({required this.value});
+  const AmmoniaGaugeBasic({super.key, required this.value});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column( // Wrap the gauge in a Column to include a title
+      margin: const EdgeInsets.all(10),
+      child: Column(
+        // Wrap the gauge in a Column to include a title
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Ammonia Level',
             style: TextStyle(
               fontSize: 18,
@@ -21,12 +23,8 @@ class AmmoniaGauge extends StatelessWidget {
             ),
           ),
           SfLinearGauge(
-            ranges: [
-              LinearGaugeRange(
-                  startValue: 0,
-                  endValue: 1,
-                  color: Colors.green
-              ),
+            ranges: const [
+              LinearGaugeRange(startValue: 0, endValue: 1, color: Colors.green),
               LinearGaugeRange(
                 startValue: 1,
                 endValue: 2,
@@ -67,8 +65,9 @@ class AmmoniaGauge extends StatelessWidget {
             maximum: 8.0,
             interval: 1.0,
             orientation: LinearGaugeOrientation.horizontal,
-            axisLabelStyle: TextStyle(fontSize: 12.0, color: Colors.black),
-            axisTrackStyle: LinearAxisTrackStyle(
+            axisLabelStyle:
+                const TextStyle(fontSize: 12.0, color: Colors.black),
+            axisTrackStyle: const LinearAxisTrackStyle(
               color: Colors.white,
               edgeStyle: LinearEdgeStyle.bothFlat,
               thickness: 15.0,
@@ -84,6 +83,6 @@ class AmmoniaGauge extends StatelessWidget {
           ),
         ],
       ),
-      margin: EdgeInsets.all(10),);
+    );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'gauge.dart';
 
 class WaterTempGauge extends StatelessWidget {
   final double value;

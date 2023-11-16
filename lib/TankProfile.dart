@@ -2,8 +2,6 @@ import 'package:aquatech/drawer.dart';
 import 'package:aquatech/gauge.dart';
 import 'package:aquatech/gaugebasic.dart';
 import 'package:flutter/material.dart';
-//import 'MqttClient.dart';
-//import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 
 class TankProfile extends StatefulWidget {
@@ -14,7 +12,7 @@ class TankProfile extends StatefulWidget {
 }
 
 class _TankProfileState extends State<TankProfile> {
-  bool showGaugeBasic = true;
+  bool showGaugeBasic = false;
   final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   String relayValue = 'Relay OFF'; // Initialize to OFF
@@ -23,7 +21,7 @@ class _TankProfileState extends State<TankProfile> {
   @override
   void initState() {
     super.initState();
-    _database.reference().child('Commands').onValue.listen((event) {
+    _database.reference().child('CMD0001').onValue.listen((event) {
       final data = event.snapshot.value as Map<dynamic, dynamic>;
       setState(() {
         relayValue = data['RELAY'].toString();
@@ -100,16 +98,19 @@ class _TankProfileState extends State<TankProfile> {
                               // Turn the relay on
                               _database
                                   .reference()
-                                  .child('Commands')
+                                  .child('CMD0001')
                                   .update({'RELAY': 'Relay ON'});
 
                               // Wait for 30 seconds and then turn it off
                               Future.delayed(Duration(seconds: 10), () {
                                 _database
                                     .reference()
-                                    .child('Commands')
+                                    .child('CMD0001')
                                     .update({'RELAY': 'Relay OFF'});
                               });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Changing water...')),
+                              );
                             },
                             icon: const Icon(Icons.water_drop),
                             label: const Text('Change Water'),
@@ -121,16 +122,21 @@ class _TankProfileState extends State<TankProfile> {
                               // Turn the servo on
                               _database
                                   .reference()
-                                  .child('Commands')
+                                  .child('CMD0001')
                                   .update({'SERVO': 'Servo ON'});
 
                               // Wait for 30 seconds and then turn it off
                               Future.delayed(Duration(seconds: 10), () {
                                 _database
                                     .reference()
-                                    .child('Commands')
+                                    .child('CMD0001')
                                     .update({'SERVO': 'Servo OFF'});
                               });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content:
+                                        Text('Dispensing pH balancers...')),
+                              );
                             },
                             icon: const Icon(Icons.science_rounded),
                             label: const Text('Adjust pH'),
@@ -190,6 +196,7 @@ class ContainerWithIcon extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class RoundedPillButton extends StatelessWidget {
   final String text;
   final Color backgroundColor;

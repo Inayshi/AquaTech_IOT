@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'WaterTempGauge.dart';
-import 'PhLevelGauge.dart';
-import 'AmmoniaGauge.dart';
+import 'AmmoniaGaugeBasic.dart';
+import 'PhLevelGaugeBasic.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 class GaugeBasic extends StatefulWidget {
@@ -85,8 +85,8 @@ class _GaugeBasicState extends State<GaugeBasic> {
               ),
             ),
             WaterTempGauge(value: tempValue),
-            PhLevelGauge(value: phValue),
-            AmmoniaGauge(value: ammoniaValue),
+            PhLevelGaugeBasic(value: phValue),
+            AmmoniaGaugeBasic(value: ammoniaValue),
           ],
         ),
       ),

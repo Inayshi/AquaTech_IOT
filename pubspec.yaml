@@ -40,6 +40,8 @@ dependencies:
   awesome_notifications: ^0.8.2
   fl_chart: ^0.36.0 # Use the latest version available
   mqtt_client: ^9.7.2
+  flutter_pdfview: 1.3.2
+  
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +87,9 @@ flutter:
         - asset: assets/fonts/Poppins-Regular.otf
         - asset: assets/fonts/Poppins-Bold.otf
           weight: 500
+  
+  assets:
+    - assets/pdf/
 
   #   - family: Trajan Pro
   #     fonts:

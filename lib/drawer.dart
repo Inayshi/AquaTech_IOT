@@ -1,8 +1,6 @@
 import 'package:aquatech/AnalyticsPage.dart';
 import 'package:aquatech/InformationPage.dart';
 import 'package:aquatech/MyTanks.dart';
-import 'package:aquatech/PubSubTest.dart';
-import 'package:aquatech/SettingsPage.dart';
 import 'HomePage.dart';
 import 'package:flutter/material.dart';
 
@@ -57,26 +55,7 @@ class MenuDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-              title: Text(
-                'Connections',
-                style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
-              ),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => SettingsPage()),
-                );
-              }),
-          ListTile(
-              title: Text(
-                'Test',
-                style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
-              ),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => MyStatefulWidget()),
-                );
-              }),
+        
         ],
       ),
     );

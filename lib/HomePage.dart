@@ -1,7 +1,6 @@
 import 'package:aquatech/AnalyticsPage.dart';
 import 'package:aquatech/InformationPage.dart';
 import 'package:aquatech/MyTanks.dart';
-import 'package:aquatech/SettingsPage.dart';
 import 'package:flutter/material.dart';
 
 
@@ -47,16 +46,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             const SizedBox(height: 30),
-            ButtonWithIconAndText(
-              icon: Icons.wifi,
-              text: 'Connections',
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()),
-                );
-              },
-            ),
+            
           ],
         ),
       ),

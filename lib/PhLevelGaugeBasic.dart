@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-class PhLevelGauge extends StatelessWidget {
+class PhLevelGaugeBasic extends StatelessWidget {
   final double value;
 
-  PhLevelGauge({required this.value});
+  PhLevelGaugeBasic({required this.value});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
-      child: Column( // Wrap the gauge in a Column to include a title
+      child: Column(
+        // Wrap the gauge in a Column to include a title
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
@@ -24,10 +25,7 @@ class PhLevelGauge extends StatelessWidget {
           SfLinearGauge(
             ranges: const [
               LinearGaugeRange(
-                  startValue: 0,
-                  endValue: 1,
-                  color: Colors.blueAccent
-              ),
+                  startValue: 0, endValue: 1, color: Colors.blueAccent),
               LinearGaugeRange(
                 startValue: 1,
                 endValue: 2,
@@ -98,7 +96,8 @@ class PhLevelGauge extends StatelessWidget {
             maximum: 14.0,
             interval: 1.0,
             orientation: LinearGaugeOrientation.horizontal,
-            axisLabelStyle: const TextStyle(fontSize: 12.0, color: Colors.black),
+            axisLabelStyle:
+                const TextStyle(fontSize: 12.0, color: Colors.black),
             axisTrackStyle: const LinearAxisTrackStyle(
               color: Colors.white,
               edgeStyle: LinearEdgeStyle.bothFlat,

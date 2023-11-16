@@ -14,7 +14,8 @@ class MyTanks extends StatelessWidget {
         children: [
           Container(
             color: Color(0xFF0081C9), // Top part color
-            height: MediaQuery.of(context).size.height * 0.2, // 30% of screen height
+            height: MediaQuery.of(context).size.height *
+                0.2, // 30% of screen height
             child: Center(
               child: Text(
                 'My Tanks',
@@ -29,8 +30,9 @@ class MyTanks extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
-              itemCount: 2, // Replace with the actual number of tanks
-              separatorBuilder: (context, index) => Divider(), // Add a separator between items
+              itemCount: 1, // Replace with the actual number of tanks
+              separatorBuilder: (context, index) =>
+                  Divider(), // Add a separator between items
               itemBuilder: (context, index) {
                 // Replace with tank data
                 return GestureDetector(
