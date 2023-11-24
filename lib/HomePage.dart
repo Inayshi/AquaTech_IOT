@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:aquatech/AnalyticsPage.dart';
 import 'package:aquatech/InformationPage.dart';
 import 'package:aquatech/MyTanks.dart';
-import 'package:flutter/material.dart';
-
+import 'package:aquatech/TankProfile.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -13,13 +13,20 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Add your image here
+            Image.asset(
+              'assets/images/Lettermark.png', // Replace with the actual image path
+              width: 300, // Adjust the width as needed
+              height: 200, // Adjust the height as needed
+            ),
+
             ButtonWithIconAndText(
               icon: Icons.water_sharp,
-              text: 'My Tanks',
+              text: 'My Tank',
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MyTanks()),
+                  MaterialPageRoute(builder: (context) => TankProfile()),
                 );
               },
             ),
@@ -46,7 +53,6 @@ class HomePage extends StatelessWidget {
               },
             ),
             const SizedBox(height: 30),
-            
           ],
         ),
       ),
@@ -60,7 +66,6 @@ class ButtonWithIconAndText extends StatelessWidget {
   final VoidCallback onPressed;
 
   ButtonWithIconAndText({
-    super.key,
     required this.icon,
     required this.text,
     required this.onPressed,

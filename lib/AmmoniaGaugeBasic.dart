@@ -38,12 +38,12 @@ class AmmoniaGaugeBasic extends StatelessWidget {
               LinearGaugeRange(
                 startValue: 3,
                 endValue: 4,
-                color: Colors.lime,
+                color: Color.fromARGB(255, 255, 246, 116),
               ),
               LinearGaugeRange(
                 startValue: 4,
                 endValue: 5,
-                color: Colors.yellow,
+                color: Color.fromARGB(255, 255, 193, 59),
               ),
               LinearGaugeRange(
                 startValue: 5,

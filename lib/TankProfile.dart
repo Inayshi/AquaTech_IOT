@@ -50,44 +50,14 @@ class _TankProfileState extends State<TankProfile> {
         body: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.17,
+              height: MediaQuery.of(context).size.height * 0.10,
               width: MediaQuery.of(context).size.width * 100,
-              color: Color(0xFF0081C9),
+              color: Color.fromARGB(255, 255, 255, 255),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Tank 1 ',
-                          style: TextStyle(
-                            fontSize: 45,
-                            color: Colors.white,
-                          ),
-                        ),
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                            icon: const Icon(Icons.remove_red_eye,
-                                color: Colors
-                                    .white), // Set the desired color for the icon
-                            onPressed: () {
-                              setState(() {
-                                showGaugeBasic = !showGaugeBasic;
-                              });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Switched Views')),
-                              );
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -98,14 +68,14 @@ class _TankProfileState extends State<TankProfile> {
                               // Turn the relay on
                               _database
                                   .reference()
-                                  .child('CMD0001')
+                                  .child('Commands')
                                   .update({'RELAY': 'Relay ON'});
 
                               // Wait for 30 seconds and then turn it off
                               Future.delayed(Duration(seconds: 10), () {
                                 _database
                                     .reference()
-                                    .child('CMD0001')
+                                    .child('Commands')
                                     .update({'RELAY': 'Relay OFF'});
                               });
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -116,20 +86,20 @@ class _TankProfileState extends State<TankProfile> {
                             label: const Text('Change Water'),
                             tooltip: 'Activate Water Change',
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: 5),
                           FloatingActionButton.extended(
                             onPressed: () {
                               // Turn the servo on
                               _database
                                   .reference()
-                                  .child('CMD0001')
+                                  .child('Commands')
                                   .update({'SERVO': 'Servo ON'});
 
                               // Wait for 30 seconds and then turn it off
                               Future.delayed(Duration(seconds: 10), () {
                                 _database
                                     .reference()
-                                    .child('CMD0001')
+                                    .child('Commands')
                                     .update({'SERVO': 'Servo OFF'});
                               });
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -142,7 +112,26 @@ class _TankProfileState extends State<TankProfile> {
                             label: const Text('Adjust pH'),
                             tooltip: 'Activate pH Dispenser',
                           ),
-                          SizedBox(width: 30),
+                          SizedBox(width: 5),
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              icon: const Icon(
+                                color: Colors.blue,
+                                Icons.remove_red_eye,
+                              ), // Set the desired color for the icon
+                              onPressed: () {
+                                setState(() {
+                                  showGaugeBasic = !showGaugeBasic;
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Switched Views')),
+                                );
+                              },
+                            ),
+                          )
                         ],
                       ),
                     ),

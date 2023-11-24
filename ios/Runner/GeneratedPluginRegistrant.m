@@ -30,10 +30,10 @@
 @import firebase_database;
 #endif
 
-#if __has_include(<flutter_pdfview/FLTPDFViewFlutterPlugin.h>)
-#import <flutter_pdfview/FLTPDFViewFlutterPlugin.h>
+#if __has_include(<webview_flutter_wkwebview/FLTWebViewFlutterPlugin.h>)
+#import <webview_flutter_wkwebview/FLTWebViewFlutterPlugin.h>
 #else
-@import flutter_pdfview;
+@import webview_flutter_wkwebview;
 #endif
 
 @implementation GeneratedPluginRegistrant
@@ -43,7 +43,7 @@
   [FLTFirebaseFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseFirestorePlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseDatabasePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseDatabasePlugin"]];
-  [FLTPDFViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPDFViewFlutterPlugin"]];
+  [FLTWebViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTWebViewFlutterPlugin"]];
 }
 
 @end

@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Aquatech',
       theme: ThemeData(
         textTheme: Theme.of(context).textTheme.apply(

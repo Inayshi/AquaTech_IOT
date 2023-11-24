@@ -25,7 +25,9 @@ class PhLevelGaugeBasic extends StatelessWidget {
           SfLinearGauge(
             ranges: const [
               LinearGaugeRange(
-                  startValue: 0, endValue: 1, color: Colors.blueAccent),
+                  startValue: 0,
+                  endValue: 1,
+                  color: Color.fromARGB(255, 160, 195, 255)),
               LinearGaugeRange(
                 startValue: 1,
                 endValue: 2,
@@ -49,17 +51,17 @@ class PhLevelGaugeBasic extends StatelessWidget {
               LinearGaugeRange(
                 startValue: 5,
                 endValue: 6,
-                color: Colors.lightGreen,
+                color: Color.fromARGB(255, 75, 107, 37),
               ),
               LinearGaugeRange(
                 startValue: 6,
                 endValue: 7,
-                color: Colors.lightGreenAccent,
+                color: Color.fromARGB(255, 118, 184, 43),
               ),
               LinearGaugeRange(
                 startValue: 7,
                 endValue: 8,
-                color: Colors.lightGreen,
+                color: Color.fromARGB(255, 243, 232, 131),
               ),
               LinearGaugeRange(
                 startValue: 8,
@@ -69,7 +71,7 @@ class PhLevelGaugeBasic extends StatelessWidget {
               LinearGaugeRange(
                 startValue: 9,
                 endValue: 10,
-                color: Colors.yellowAccent,
+                color: Color.fromARGB(255, 212, 212, 0),
               ),
               LinearGaugeRange(
                 startValue: 10,

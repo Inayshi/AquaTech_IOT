@@ -42,7 +42,7 @@ class _GaugeBasicState extends State<GaugeBasic> {
   }
 
   void checkAndSendNotifications() {
-    if (tempValue >= 30 || phValue >= 8.0 || ammoniaValue >= 0.25) {
+    if (tempValue >= 30 || phValue >= 8.0 || ammoniaValue >= 25) {
       AwesomeNotifications().createNotification(
           content: NotificationContent(
         id: 10,

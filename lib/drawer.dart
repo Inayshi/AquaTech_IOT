@@ -1,6 +1,7 @@
 import 'package:aquatech/AnalyticsPage.dart';
 import 'package:aquatech/InformationPage.dart';
 import 'package:aquatech/MyTanks.dart';
+import 'package:aquatech/TankProfile.dart';
 import 'HomePage.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +25,12 @@ class MenuDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              'My Tanks',
+              'My Tank',
               style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
             ),
             onTap: () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => MyTanks()),
+                MaterialPageRoute(builder: (context) => TankProfile()),
               );
             },
           ),
@@ -55,7 +56,6 @@ class MenuDrawer extends StatelessWidget {
               );
             },
           ),
-        
         ],
       ),
     );
